@@ -6,6 +6,8 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
+import Backdrop from './Backdrop/Backdrop';
+import { FidgetSpinner } from 'react-loader-spinner';
 
 const HomePage = lazy(() => import('../pages/Home/Home'));
 const RegisterPage = lazy(() => import('../pages/Register/Register'));
@@ -21,7 +23,19 @@ const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Refreshing user...</b>
+    <>
+      <b>Refreshing user...</b>
+      <Backdrop>
+        <FidgetSpinner
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="fidget-spinner-loading"
+          wrapperStyle={{ top: '50%', right: '50%', position: 'absolute' }}
+          wrapperClass="fidget-spinner-wrapper"
+        />
+      </Backdrop>
+    </>
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -29,7 +43,10 @@ const App = () => {
         <Route
           path="/register"
           element={
-            <RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
           }
         />
         <Route
