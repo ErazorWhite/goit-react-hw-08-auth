@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Backdrop from '../Backdrop/Backdrop';
-import { ModalContent } from './ConfirmModal.styled';
+import { ButtonsThumb, ChildrenThumb, ModalContent } from './ConfirmModal.styled';
+import { StyledButton } from '../styles/buttons';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -12,9 +13,11 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm, children }) => {
     <>
       <Backdrop onClick={onClose} />
       <ModalContent>
-        <div>{children}</div>
-        <button onClick={onConfirm}>Confirm</button>
-        <button onClick={onClose}>Cancel</button>
+        <ChildrenThumb>{children}</ChildrenThumb>
+        <ButtonsThumb>
+          <StyledButton onClick={onConfirm}>Confirm</StyledButton>
+          <StyledButton onClick={onClose}>Cancel</StyledButton>
+        </ButtonsThumb>
       </ModalContent>
     </>,
     modalRoot

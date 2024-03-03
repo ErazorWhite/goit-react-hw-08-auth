@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { Form, Field } from 'formik';
 import MaskedInput from 'react-text-mask';
+import { StyledButton } from '../styles/buttons';
 
 export const FormConstolsContainer = styled.div`
   border: 1px solid black;
@@ -20,13 +21,11 @@ export const StyledForm = styled(Form)`
 `;
 
 export const StyledField = styled(Field)`
-  border: 1px solid #c0c0c0;
   padding: 5px;
   width: 100%;
-  `;
+`;
 
 export const StyledMaskedInput = styled(MaskedInput)`
-  border: 1px solid #c0c0c0;
   padding: 5px;
   width: 100%;
 `;
@@ -45,16 +44,6 @@ export const StyledListItem = styled.li`
   font-weight: 500;
 `;
 
-export const StyledSubmitButton = styled.button`
-  background-color: white;
+export const StyledSubmitButton = styled(StyledButton)`
   border: 1px solid #c0c0c0;
-  border-radius: 5%;
-  padding: 5px 10px;
-  font-weight: 600;
-  transition: background-color ease-in 250ms;
-
-  &:hover,
-  &:focus {
-    background-color: aquamarine;
-  }
 `;

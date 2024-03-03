@@ -21,3 +21,14 @@ export const ModalContent = styled.div`
   z-index: 1000;
   animation: ${scaleIn} 0.3s ease-out forwards;
 `;
+
+export const ChildrenThumb = styled.div`
+  padding: 5px;
+  padding-bottom: 15px;
+`;
+
+export const ButtonsThumb = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+`;
