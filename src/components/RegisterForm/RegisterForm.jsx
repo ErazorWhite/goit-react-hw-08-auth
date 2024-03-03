@@ -1,38 +1,67 @@
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
-import { StyledForm, StyledLabel } from './RegisterForm.styled';
+import {
+  StyledErrorMessage,
+  StyledForm,
+  StyledLabel,
+} from './RegisterForm.styled';
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+// Схема валидации для формы
+const RegisterSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Username is too short - should be 3 chars minimum.')
+    .required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string()
+    .min(7, 'Password is too short - should be 7 chars minimum.')
+    .max(16, 'Password is too long - should be 16 chars maximum.')
+    .required('Required'),
+});
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    dispatch(
-      register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-    form.reset();
-  };
-
   return (
-    <StyledForm onSubmit={handleSubmit} autoComplete="off">
-      <StyledLabel>
-        Username
-        <input type="text" name="name" />
-      </StyledLabel>
-      <StyledLabel>
-        Email
-        <input type="email" name="email" />
-      </StyledLabel>
-      <StyledLabel>
-        Password
-        <input type="password" name="password" />
-      </StyledLabel>
-      <button type="submit">Register</button>
-    </StyledForm>
+    <Formik
+      initialValues={{ name: '', email: '', password: '' }}
+      validationSchema={RegisterSchema}
+      onSubmit={(values, { resetForm }) => {
+        dispatch(register(values));
+        resetForm();
+      }}
+    >
+      {({ errors, touched }) => (
+        <StyledForm autoComplete="off">
+          <StyledLabel>
+            Username
+            <Field type="text" name="name" autoComplete="username" />
+            {errors.name && touched.name ? (
+              <StyledErrorMessage>{errors.name}</StyledErrorMessage>
+            ) : null}
+          </StyledLabel>
+          <StyledLabel>
+            Email
+            <Field type="email" name="email" autoComplete="email" />
+            {errors.email && touched.email ? (
+              <StyledErrorMessage>{errors.email}</StyledErrorMessage>
+            ) : null}
+          </StyledLabel>
+          <StyledLabel>
+            Password
+            <Field
+              type="password"
+              name="password"
+              autoComplete="current-password"
+            />
+            {errors.password && touched.password ? (
+              <StyledErrorMessage>{errors.password}</StyledErrorMessage>
+            ) : null}
+          </StyledLabel>
+          <button type="submit">Register</button>
+        </StyledForm>
+      )}
+    </Formik>
   );
 };

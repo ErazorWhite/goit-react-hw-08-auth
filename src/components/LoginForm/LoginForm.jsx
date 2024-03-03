@@ -21,11 +21,15 @@ export const LoginForm = () => {
     <StyledForm onSubmit={handleSubmit} autoComplete="off">
       <StyledLabel>
         Email
-        <input type="email" name="email" />
+        <input type="email" name="email" autoComplete="email" />
       </StyledLabel>
       <StyledLabel>
         Password
-        <input type="password" name="password" />
+        <input
+          type="password"
+          name="password"
+          autoComplete="current-password"
+        />
       </StyledLabel>
       <button type="submit">Log In</button>
     </StyledForm>
