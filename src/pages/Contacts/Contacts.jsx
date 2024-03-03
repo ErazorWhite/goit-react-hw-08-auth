@@ -9,6 +9,8 @@ import {
   selectIsLoading,
 } from '../../redux/contacts/selectors';
 import { fetchContacts } from '../../redux/contacts/operations';
+import Backdrop from '../../components/Backdrop/Backdrop';
+import { FidgetSpinner } from 'react-loader-spinner';
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -26,7 +28,18 @@ const Contacts = () => {
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
-      {loading && <p>Loading contacts...</p>}
+      {loading && (
+        <Backdrop>
+          <FidgetSpinner
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="fidget-spinner-loading"
+            wrapperStyle={{ top: '50%', right: '50%', position: 'absolute'}}
+            wrapperClass="fidget-spinner-wrapper"
+          />
+        </Backdrop>
+      )}
       {contacts?.length ? (
         <>
           <Filter />
