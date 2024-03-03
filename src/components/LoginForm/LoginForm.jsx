@@ -1,37 +1,56 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
-import { StyledForm, StyledLabel } from './LoginForm.styled';
+import { Formik, Field } from 'formik';
+import {
+  StyledErrorMessage,
+  StyledForm,
+  StyledLabel,
+} from './LoginForm.styled';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+  email: Yup.string().email('Invalid email address').required('Required'),
+  password: Yup.string()
+    .min(7, 'Password is too short - should be 7 chars minimum.')
+    .max(16, 'Password is too long - should be 16 chars maximum.')
+    .required('Required'),
+});
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    dispatch(
-      logIn({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-    form.reset();
-  };
-
   return (
-    <StyledForm onSubmit={handleSubmit} autoComplete="off">
-      <StyledLabel>
-        Email
-        <input type="email" name="email" autoComplete="email" />
-      </StyledLabel>
-      <StyledLabel>
-        Password
-        <input
-          type="password"
-          name="password"
-          autoComplete="current-password"
-        />
-      </StyledLabel>
-      <button type="submit">Log In</button>
-    </StyledForm>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { resetForm }) => {
+        dispatch(logIn(values));
+        resetForm();
+      }}
+    >
+      {({ errors, touched }) => (
+        <StyledForm autoComplete="off">
+          <StyledLabel>
+            Email
+            <Field type="email" name="email" autoComplete="email" />
+            {errors.email && touched.email ? (
+              <StyledErrorMessage>{errors.email}</StyledErrorMessage>
+            ) : null}
+          </StyledLabel>
+          <StyledLabel>
+            Password
+            <Field
+              type="password"
+              name="password"
+              autoComplete="current-password"
+            />
+            {errors.password && touched.password ? (
+              <StyledErrorMessage>{errors.password}</StyledErrorMessage>
+            ) : null}
+          </StyledLabel>
+          <button type="submit">Log In</button>
+        </StyledForm>
+      )}
+    </Formik>
   );
 };

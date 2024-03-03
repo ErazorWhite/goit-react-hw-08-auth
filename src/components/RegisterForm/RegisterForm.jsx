@@ -5,7 +5,7 @@ import {
   StyledForm,
   StyledLabel,
 } from './RegisterForm.styled';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
 // Схема валидации для формы
