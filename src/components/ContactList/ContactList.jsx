@@ -9,8 +9,8 @@ const ContactList = () => {
   return (
     <>
       <StyledUnorderedList>
-        {contacts.map(({ id, name, phone }) => (
-          <ContactListItem key={id} id={id} name={name} phone={phone} />
+        {contacts.map(({ id, name, number }) => (
+          <ContactListItem key={id} id={id} name={name} number={number} />
         ))}
       </StyledUnorderedList>
     </>

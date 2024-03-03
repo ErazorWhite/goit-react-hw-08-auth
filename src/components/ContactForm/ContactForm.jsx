@@ -38,7 +38,7 @@ const phoneNumberMask = [
 
 const initialValues = {
   name: '',
-  phone: '',
+  number: '',
 };
 
 // Схема для валидации yup
@@ -50,7 +50,7 @@ const schema = yup.object().shape({
     .notOneOf(['1234567890'], 'Invalid name')
     .matches(/^[a-zA-Z\s]+$/, 'Invalid name')
     .required('Required!'),
-  phone: yup
+  number: yup
     .string()
     .matches(/^\+?\d{1,3}\(\d{3}\)\d{2}-\d{2}-\d{3}$/, 'Invalid phone number')
     .required('Required!'),
@@ -95,22 +95,22 @@ const ContactForm = () => {
             </FieldContainer>
           </StyledLabel>
 
-          <StyledLabel htmlFor="phone">
+          <StyledLabel htmlFor="number">
             Number
             <FieldContainer>
-              <StyledField name="phone">
+              <StyledField name="number">
                 {({ field }) => (
                   <StyledMaskedInput
                     {...field}
                     mask={phoneNumberMask}
                     placeholder="Enter phone number"
-                    id="phone"
+                    id="number"
                     type="text"
                     component="input"
                   />
                 )}
               </StyledField>
-              <ErrorMessage name="phone" component={StyledErrorMessage} />
+              <ErrorMessage name="number" component={StyledErrorMessage} />
             </FieldContainer>
           </StyledLabel>
           <div>
