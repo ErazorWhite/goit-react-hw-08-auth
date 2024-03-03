@@ -7,6 +7,7 @@ import {
   StyledLabel,
 } from './LoginForm.styled';
 import * as Yup from 'yup';
+import { StyledButton } from '../styles/buttons';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
@@ -48,7 +49,7 @@ export const LoginForm = () => {
               <StyledErrorMessage>{errors.password}</StyledErrorMessage>
             ) : null}
           </StyledLabel>
-          <button type="submit">Log In</button>
+          <StyledButton type="submit">Log In</StyledButton>
         </StyledForm>
       )}
     </Formik>
