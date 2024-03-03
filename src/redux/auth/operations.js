@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -42,8 +43,10 @@ export const logIn = createAsyncThunk(
       const res = await axios.post('/users/login', credentials);
       // After successful login, add the token to the HTTP header
       setAuthHeader(res.data.token);
+      toast.success("You've successfully logged in, welcome!");
       return res.data;
     } catch (error) {
+      toast.error(`Logging in has failed: ${error.message}`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -58,6 +61,9 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await axios.post('/users/logout');
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();
+    toast('Good bye!', {
+      icon: '👋',
+    });
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }

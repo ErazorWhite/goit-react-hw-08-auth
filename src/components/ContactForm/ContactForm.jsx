@@ -64,7 +64,7 @@ const ContactForm = () => {
   const createPhoneBookEntry = data => {
     const normalizedData = data.name?.toLowerCase();
     if (contacts?.some(({ name }) => name.toLowerCase() === normalizedData)) {
-      toast('Such a contact already exists!');
+      toast.error('Such a contact already exists!');
       return;
     }
     dispatch(addContact(data));
