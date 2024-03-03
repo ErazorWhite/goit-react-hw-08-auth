@@ -11,9 +11,9 @@ import {
   StyledMaskedInput, // Франкенштейн из Masked + Styled, который под капотом ещё наверное Field от формика инкапсулирует
 } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { selectContacts } from '../../redux/contacts/selectors';
 import { addContact } from '../../redux/contacts/operations';
+import toast from 'react-hot-toast';
 
 // Инпут маска для номера телефона
 const phoneNumberMask = [
