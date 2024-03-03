@@ -9,11 +9,15 @@ import { FaUser } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contacts/operations';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { useState } from 'react';
 
 const ContactListItem = ({ name, number, id }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const deletePhoneBookEntry = entryId => {
     dispatch(deleteContact(entryId));
+    setIsModalOpen(false);
   };
   return (
     <StyledListItem>
@@ -27,9 +31,16 @@ const ContactListItem = ({ name, number, id }) => {
           <p>{number}</p>
         </StyledContactEntry>
       </StyledContactEntryBox>
-      <StyledDeleteButton onClick={() => deletePhoneBookEntry(id)}>
+      <StyledDeleteButton onClick={() => setIsModalOpen(true)}>
         Delete
       </StyledDeleteButton>
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={() => deletePhoneBookEntry(id)}
+      >
+        Are you sure you want to delete this contact?
+      </ConfirmModal>
     </StyledListItem>
   );
 };
