@@ -3,7 +3,7 @@ import { Form } from 'formik';
 import styled from 'styled-components';
 
 export const StyledForm = styled(Form)`
-  width: 320px;
+  max-width: 320px;
 `;
 
 export const StyledLabel = styled.label`

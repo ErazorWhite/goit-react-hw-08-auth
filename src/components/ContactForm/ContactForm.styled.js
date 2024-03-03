@@ -11,7 +11,6 @@ export const StyledLabel = styled.label`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 200px;
   font-size: 1.2em;
   font-weight: 500;
 `;
@@ -23,11 +22,13 @@ export const StyledForm = styled(Form)`
 export const StyledField = styled(Field)`
   border: 1px solid #c0c0c0;
   padding: 5px;
-`;
+  width: 100%;
+  `;
 
 export const StyledMaskedInput = styled(MaskedInput)`
   border: 1px solid #c0c0c0;
   padding: 5px;
+  width: 100%;
 `;
 
 export const FieldContainer = styled.div`
